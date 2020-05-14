@@ -1,26 +1,35 @@
-pipeline {
- agent any
-    stages {
+
+
+pipeline{
+    agent any
+      stages {
+        stage('SCM Checkout') {
+           steps{
+
+                git 'https://github.com/Arun8055643220/spring-mvn.git'
+}
+
+}
+    stage('Complie-stage') {
+       steps{
+           sh "mvn clean complie"
+        
+    
+}
+}
+     stage('build'){
+
+       steps{
+            sh "mvn install"
+} 
+ }
+       stage('deploy war file fo tomcat'){
+        steps{
    
-stage ('build')
-{
-steps{
-echo"build the project"
+        sh 'sudo cp -r /var/lib/jenkins/workspace/spring-mvn/target/*.war /opt/apache-tomcat-9.0.35/webapps/'
+}    
+  }
+
 }
+
 }
-stage('Test')
-{
-steps{
-echo" Testing the project"
-}
-}
-stage('Deploy')
-{
-steps
-{
-echo('Deploying the project')
-}
-}
-}
-}
-© 2020 GitHub, Inc.
